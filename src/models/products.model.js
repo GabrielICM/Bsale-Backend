@@ -15,11 +15,18 @@ var dataModel = {
     },
     getFilterProducts : (data, callback) =>{
         if(pool) {
-            const sql = `select p.id, p.name, p.price, p.discount, c.name as category 
+            function replaceSql (query,values = {}){
+                Object.keys(values).forEach((name) =>{
+                    query = query.replace(name,pool.escape(values[name]));
+                })
+                return query;
+            }
+            const sql = replaceSql(`select p.id, p.name, p.price, p.discount, c.name as category 
             from product p inner join category c on p.category = c.id 
-            where (p.name like  ${pool.escape(data)} or
-                    c.name like ${pool.escape(data)})
-            order by p.id asc;`;
+            where (p.name like  :name1 or
+                    c.name like :name2)
+            order by p.id asc;`, {':name1' : `%${data}%`,
+                                    ':name2' : `%${data}%`});
             
             pool.query(sql, (error, rows) =>{
                 if(error) throw error;

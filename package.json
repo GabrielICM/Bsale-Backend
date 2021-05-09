@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node ./app.js"
+    "start": "node src/app.js",
+    "dev": "dev nodemon src/app.js"
   },
   "author": "GabrielICM",
   "license": "ISC",

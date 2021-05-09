@@ -15,7 +15,6 @@ var dataModel = {
     },
     getFilterProducts : (data, callback) =>{
         if(pool) {
-            console.log(search);
             const sql = `select p.id, p.name, p.price, p.discount, c.name as category 
             from product p inner join category c on p.category = c.id 
             where (p.name like  ${pool.escape(data)} or

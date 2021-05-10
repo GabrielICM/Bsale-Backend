@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 
 //database
@@ -8,6 +9,7 @@ const pool = require('./database');
 //settings
 app.set('port',process.env.PORT || 3000);
 app.set('json spaces', 2)
+app.use(cors());
 
 //middlewares
 app.use(morgan('dev'));
@@ -21,4 +23,5 @@ app.use('/api',require('./routes/routes'));
 app.listen(app.get('port'),() =>{
     console.log(`Server on port ${app.get('port')}`);
 });
+
 

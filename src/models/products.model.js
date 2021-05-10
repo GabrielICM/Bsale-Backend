@@ -21,7 +21,7 @@ var dataModel = {
                 })
                 return query;
             }
-            const sql = replaceSql(`select p.id,p.url_image, p.name, p.price, p.discount, c.name as category 
+            const sql = replaceSql(`select p.id,COALESCE(p.url_image,'1') as image, p.name, p.price, p.discount, c.name as category 
             from product p inner join category c on p.category = c.id 
             where (p.name like  :name1 or
                     c.name like :name2)

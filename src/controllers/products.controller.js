@@ -8,7 +8,7 @@ function getProducts(req,res){
 
 function getFilterProducts(req,res){
     const {search}  = req.params;
-    
+
     dataModel.getFilterProducts(search,(data,error) =>{
         res.json(data);
     })

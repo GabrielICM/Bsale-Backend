@@ -63,13 +63,20 @@ producto.forEach(product =>{
     linkAgregarCarrito.setAttribute('href','#!')
     agregarCarrito.setAttribute('src','/img/outline_add_shopping_cart_black_24dp.png');
     
-    console.log(product);
     imagen.setAttribute('src',`${product.image}`);
     imagen.style.width = "14.6rem";
     imagen.style.height = "14rem";
 
     nombreProducto.textContent = `${product.name}`;
-    precioProducto.textContent = `$ ${product.price}`
+    nombreProducto.textContent = `${product.name}`;
+    if(product.discount > 0){
+        const descuento = parseInt(product.discount)*0.01*parseInt(product.price);
+        const precioReal =  String(parseInt(product.price)-descuento);
+ 
+        precioProducto.textContent = `$ ${precioReal} `;
+    }else{
+        precioProducto.textContent = `$ ${product.price}`;
+    }
  
     mostradorProductos.appendChild(divCol);
     divCol.appendChild(card);

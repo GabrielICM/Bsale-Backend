@@ -6,36 +6,81 @@ const agregarCarrito = document.querySelector('#agregarCarrito');
 const btnbuscador = document.querySelector('#btnBuscador');
 const buscador = document.querySelector('#buscador');
 
+const categoriaDestilado = document.querySelector('#destilados');
+const categoriaCerveza = document.querySelector('#cervezas');
+const categoriaBebidas = document.querySelector('#bebidas');
+const categoriaSnack = document.querySelector('#snacks');
+
 const url = 'https://bsale-backend-2021.herokuapp.com/api/products';
 
 addEventListeners();
 
 function addEventListeners(){
     document.addEventListener('DOMContentLoaded',traerProductos);
+
     buscador.addEventListener('keypress',enterFiltrar);
-    btnBuscador.addEventListener('click',traerProductosFiltrador);
+    btnBuscador.addEventListener('click',btnFiltrar);
+
+    categoriaDestilado.addEventListener('click',destilados);
+    categoriaCerveza.addEventListener('click',cervezas);
+    categoriaBebidas.addEventListener('click',bebidas);
+    categoriaSnack.addEventListener('click',snacks);
 }
+
+//fetch [GEt]
+function traerProductos(){
+    fetch(`${url}`)
+    .then(res => res.json())
+    .then(data => displayProducto(data)) 
+}
+function traerProductosFiltrador(e){
+    e.preventDefault();
+    
+    const textoBuscador = buscador.value;
+    
+    fetch(`${url}/${textoBuscador}`)
+    .then(res => res.json())
+    .then(data => displayProducto(data, 2)) 
+}
+
+function traerProductosPorCategoria(e,categoria,triggerEliminar){
+    e.preventDefault();
+    
+    fetch(`${url}/category/${categoria}`)
+    .then(res => res.json())
+    .then(data => displayProducto(data, triggerEliminar)) 
+}
+
+//eventos
 function enterFiltrar(e){
     if(e.key == 'Enter'){
         traerProductosFiltrador(e);
     }
 }
 
-function traerProductos(){
-    fetch(`${url}`)
-        .then(res => res.json())
-        .then(data => displayProducto(data)) 
-}
-function traerProductosFiltrador(e){
-    e.preventDefault();
-
-    const textoBuscador = buscador.value;
-
-    fetch(`${url}/${textoBuscador}`)
-        .then(res => res.json())
-        .then(data => displayProducto(data, 2)) 
+function btnFiltrar(e){
+    traerProductosFiltrador(e);
 }
 
+// eventos--categorias
+
+function destilados(e){
+    traerProductosPorCategoria(e,2,2);
+    traerProductosPorCategoria(e,3,1);
+    traerProductosPorCategoria(e,7,1);
+}
+function cervezas(e){
+    traerProductosPorCategoria(e,6,2);
+}
+function bebidas(e){
+    traerProductosPorCategoria(e,4,2);
+    traerProductosPorCategoria(e,1,1);
+}
+function snacks(e){
+    traerProductosPorCategoria(e,5,2);
+}
+
+//Display de productos
 function displayProducto(producto, filtrado = 1){  
     if(filtrado > 1){
         eliminarHTML()
@@ -96,24 +141,6 @@ producto.forEach(product =>{
     linkAgregarCarrito.appendChild(agregarCarrito);
     });
 }
-
-/*! --------Product example--------
-
-<div class="col-lg-4 col-md-6 mb-4">
-    <div class="card shadow-sm h-100">
-        <a href="#!"><img class="shadow-sm card-img-top" src="https://dojiw2m9tvv09.cloudfront.net/11132/product/misterbig3308256.jpg"
-                alt="..." /></a>
-        <div class="card-body shadow-sm">
-            <h6 class="card-title text-center mt-3">Energetica MR BIG</h6>
-            <h5 class="text-center">$ 1.990</h5>
-        </div>
-        <div class="mx-auto my-2 ">
-            <a href="#!">
-                <img  src="/img/outline_add_shopping_cart_black_24dp.png" alt="">
-            </a>
-        </div>
-</div>
-*/
 
 function eliminarHTML(){
     while(mostradorProductos.firstChild){

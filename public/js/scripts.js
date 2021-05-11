@@ -85,63 +85,70 @@ function displayProducto(producto, filtrado = 1){
     if(filtrado > 1){
         eliminarHTML()
     }
-producto.forEach(product =>{
-    const divCol = document.createElement('div');
-    const card = document.createElement("div");
-    const cardBody = document.createElement("div");
-    const cardFooter = document.createElement("div");
-
-    const linkImagen = document.createElement("a");
-    const imagen = document.createElement("img");
-
-    const nombreProducto = document.createElement("h6");
-    const precioProducto = document.createElement("h5");
-
-    const linkAgregarCarrito = document.createElement("a");
-    const agregarCarrito = document.createElement("img");
-
-    //Se agregan clases
-    divCol.classList.add('col-lg-4','col-md-6','mb-4','mt-5')
-    card.classList.add('card','shadow-sm','h-100');
-
-    imagen.classList.add('shadow-sm','card-img-top');
-    
-    cardBody.classList.add('card-body','shadow-sm');
-    nombreProducto.classList.add('card-title','text-center','mt-3');
-    precioProducto.classList.add('text-center')
-    //Se agrega atributos
-    cardFooter.classList.add('mx-auto','my-2');
-    linkAgregarCarrito.setAttribute('href','#!')
-    agregarCarrito.setAttribute('src','/img/outline_add_shopping_cart_black_24dp.png');
-    
-    imagen.setAttribute('src',`${product.image}`);
-    imagen.style.width = "14.6rem";
-    imagen.style.height = "14rem";
-
-    nombreProducto.textContent = `${product.name}`;
-    nombreProducto.textContent = `${product.name}`;
-    if(product.discount > 0){
-        const descuento = parseInt(product.discount)*0.01*parseInt(product.price);
-        const precioReal =  String(parseInt(product.price)-descuento);
- 
-        precioProducto.textContent = `$ ${precioReal} `;
+    if(producto.length !== 0){
+        producto.forEach(product =>{
+            const divCol = document.createElement('div');
+            const card = document.createElement("div");
+            const cardBody = document.createElement("div");
+            const cardFooter = document.createElement("div");
+            
+            const linkImagen = document.createElement("a");
+            const imagen = document.createElement("img");
+            
+            const nombreProducto = document.createElement("h6");
+            const precioProducto = document.createElement("h5");
+            
+            const linkAgregarCarrito = document.createElement("a");
+            const agregarCarrito = document.createElement("img");
+            
+            //Se agregan clases
+            divCol.classList.add('col-lg-4','col-md-6','mb-4','mt-5')
+            card.classList.add('card','shadow-sm','h-100');
+            
+            imagen.classList.add('shadow-sm','card-img-top');
+            
+            cardBody.classList.add('card-body','shadow-sm');
+            nombreProducto.classList.add('card-title','text-center','mt-3');
+            precioProducto.classList.add('text-center')
+            //Se agrega atributos
+            cardFooter.classList.add('mx-auto','my-2');
+            linkAgregarCarrito.setAttribute('href','#!')
+            agregarCarrito.setAttribute('src','/img/outline_add_shopping_cart_black_24dp.png');
+            
+            imagen.setAttribute('src',`${product.image}`);
+            imagen.style.width = "14.6rem";
+            imagen.style.height = "14rem";
+            
+            nombreProducto.textContent = `${product.name}`;
+            nombreProducto.textContent = `${product.name}`;
+            if(product.discount > 0){
+                const descuento = parseInt(product.discount)*0.01*parseInt(product.price);
+                const precioReal =  String(parseInt(product.price)-descuento);
+                
+                precioProducto.textContent = `$ ${precioReal} `;
+            }else{
+                precioProducto.textContent = `$ ${product.price}`;
+            }
+            
+            mostradorProductos.appendChild(divCol);
+            divCol.appendChild(card);
+            card.appendChild(linkImagen);
+            card.appendChild(cardBody);
+            card.appendChild(cardFooter);
+            linkImagen.appendChild(imagen);
+            cardBody.appendChild(nombreProducto)
+            cardBody.appendChild(precioProducto)
+            cardFooter.appendChild(linkAgregarCarrito);
+            linkAgregarCarrito.appendChild(agregarCarrito);
+        });
     }else{
-        precioProducto.textContent = `$ ${product.price}`;
+        const mensajesError = document.createElement("p");
+        mensajesError.classList.add('mt-3','text-left','col-lg-9','text-info')
+        mensajesError.textContent = 'Sin resultados...';
+        mostradorProductos.appendChild(mensajesError);
     }
- 
-    mostradorProductos.appendChild(divCol);
-    divCol.appendChild(card);
-    card.appendChild(linkImagen);
-    card.appendChild(cardBody);
-    card.appendChild(cardFooter);
-    linkImagen.appendChild(imagen);
-    cardBody.appendChild(nombreProducto)
-    cardBody.appendChild(precioProducto)
-    cardFooter.appendChild(linkAgregarCarrito);
-    linkAgregarCarrito.appendChild(agregarCarrito);
-    });
 }
-
+    
 function eliminarHTML(){
     while(mostradorProductos.firstChild){
         mostradorProductos.removeChild(mostradorProductos.firstChild);

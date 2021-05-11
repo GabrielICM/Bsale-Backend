@@ -50,9 +50,9 @@ las rutas para las apis, sus controladores y querys.
 |description|Devuelve productos en base a nombre o parte de uno|
 |parameters|search:path--[string]nombre de producto| 
 |----------------|----------------|
-|name|returnProductsCategory|
+|name|returnProductsByCategory|
 |type|GET|
 |path|/products/category/:category|
 |description|Devuelve productos en base a categoria| 
-|parameters|category:path--[string]ID categoria| 
+|parameters|category:path--[Int]ID categoria| 
 

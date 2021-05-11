@@ -12,7 +12,13 @@ addEventListeners();
 
 function addEventListeners(){
     document.addEventListener('DOMContentLoaded',traerProductos);
+    buscador.addEventListener('keypress',enterFiltrar);
     btnBuscador.addEventListener('click',traerProductosFiltrador);
+}
+function enterFiltrar(e){
+    if(e.key == 'Enter'){
+        traerProductosFiltrador(e);
+    }
 }
 
 function traerProductos(){

@@ -114,8 +114,13 @@ function displayProducto(producto, filtrado = 1){
             cardFooter.classList.add('mx-auto','my-2');
             linkAgregarCarrito.setAttribute('href','#!')
             agregarCarrito.setAttribute('src','/img/outline_add_shopping_cart_black_24dp.png');
-            
-            imagen.setAttribute('src',`${product.image}`);
+            //Control productos sin imagen
+            if(product.image <= 1){
+                console.log(product);
+                imagen.setAttribute('src','/img/no-imagen.jpg');
+            }else{
+                imagen.setAttribute('src',`${product.image}`);
+            }
             imagen.style.width = "14.6rem";
             imagen.style.height = "14rem";
             

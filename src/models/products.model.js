@@ -6,7 +6,7 @@ function replaceSql (query,values = {}){
     })
     return query;
 }
-
+//prepare sql string.
 var dataModel = {
     getProducts : (callback) =>{
         if(pool) {
